@@ -175,3 +175,93 @@ Fast-forward
  .gitignore | 3 ++-
  toto.md    | 4 +++-
  2 files changed, 5 insertions(+), 2 deletions(-)
+
+
+# Collaborate with your team using git
+
+## List your remote(s)
+Use git remote -v to list the remotes for the current repository. Remember, except further notice, all the commands must be executed within the repository directory tree.
+
+If we git remote -v right now, git output will be empty. This is normal, we have no remote. Let's add one.
+
+## Add a remote
+Here is the command to add the default remote to our local repository:
+
+git remote add origin https://github.com/avanade-talentagile/gitandsocialcoding.git
+git remote -v
+Shell
+origin  https://github.com/avanade-talentagile/gitandsocialcoding.git (fetch)
+origin  https://github.com/avanade-talentagile/gitandsocialcoding.git (push)
+
+
+## Change remote URL
+When a repo is moved or renamed, its URI changes. To handle this case, you just have to run the set-url command:
+
+- git remote set-url origin https://github.com/avanade-talentagile/gitandsocialcoding-newname.git
+- git remote -v
+Shell
+origin  https://github.com/avanade-talentagile/gitandsocialcoding-newname.git (fetch)
+origin  https://github.com/avanade-talentagile/gitandsocialcoding-newname.git (push)
+
+
+## Remotes and branches
+When you create a new branch on your local repository and try to push it on the remote one, you will have an error as the branch does not exist on the remote.
+
+As git has a nice CLI, it gives you the right command to solve the error:
+
+- git push
+Shell
+fatal: The current branch features/1234-new-killing-feature has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin features/1234-new-killing-feature
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+Fetch, pull & push
+Now our repository is connected to a remote one, we need to discuss with it so we can get or send updates to this remote.
+
+Fetch and pull are commands to get fresh informations from the remote while push is used to send updates.
+
+- Fetch
+fetch is the base command to get an update of the default remote repository. It will update your repository reference folder (the .git folder) but not content (your content): your local files will remain unchanged.
+
+You can use the simplest form of fetch:
+
+- git fetch
+Shell
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/avanade-talentagile/gitandsocialcoding
+   2ba53cb..a46efb7  features/1234-new-killing-feature -> origin/features/1234-new-killing-feature
+Shell
+It will use the default remote (origin) or the configured upstream for the branch.
+
+- Pull
+The pull command is often resumed to pull = fetch + merge.
+
+Under the wood, the pull command runs a fetch command to get updates from the remote(s) and then merge the update with your local version.
+
+The merge topic is discussed in details during the next labs.
+
+- Push
+The push command is the mirror command of fetch. It updates the remote repository with your local updates.
+
+The simplest form of push command is like with fetch:
+
+- git push
+Shell
+Counting objects: 3, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 311 bytes | 3.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/avanade-talentagile/gitandsocialcoding.git
+   db22b38..2ba53cb  features/1234-new-killing-feature -> features/1234-new-killing-feature
+
+
+   
+
